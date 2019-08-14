@@ -1,0 +1,245 @@
+/* Окно заявки */
+.window-one {
+    display: none;
+    text-align: center;
+    width: 100%;
+
+    &__block {
+        width: 100%;
+        background-color: var(--peach-light);
+        margin: 50px 0 0;
+        padding: 65px;
+    }
+    &__text {
+        font-size: 30px;
+        line-height: 1.33;
+        margin: 0 auto 45px;
+        max-width: 650px;
+    }
+}
+
+@include media-breakpoint-down(sm)
+{
+    .window-one {
+
+        &__block {
+            width: calc(100% + 50px);
+            margin: 40px -25px 0;
+            padding: 35px 25px;
+        }
+        &__text {
+            font-size: 18px;
+            margin: 0 auto 30px;
+        }
+    }
+}
+
+/* Окно квиза */
+.window-two {
+    display: none;
+    text-align: center;
+    width: 100%;
+
+    &__inner {
+        max-width: 880px;
+        margin: auto;
+    }
+    &__block {
+        background-color: var(--peach-light);
+        margin: 40px 0 35px;
+        padding: 65px;
+        position: relative;
+
+        &:after {
+            background-color: var(--peach-next);
+            content: "";
+            position: absolute;
+            left: 65px;
+            right: 65px;
+            bottom: -13px;
+            height: 13px;
+        }
+    }
+}
+
+@include media-breakpoint-only(lg)
+{
+    .window-two {
+
+        &__inner {
+            max-width: 695px;
+        }
+        &__block {
+            padding: 30px;
+        }
+    }
+}
+@include media-breakpoint-down(md)
+{
+    .window-two {
+
+        &__mm {
+            margin: 0 0 -55px;
+        }
+        &__block {
+            padding: 25px 15px;
+            margin: 95px 0 35px;
+        }
+    }
+}
+@include media-breakpoint-only(xs)
+{
+    .window-two {
+        padding: 75px 0 25px;
+    }
+}
+
+/* Формы */
+.form-one {
+    max-width: 530px;
+    margin: auto;
+
+    &__line {
+        margin: 0 0 15px;
+    }
+    &__input {
+        height: 72px;
+        border-radius: 4px;
+        background-color: var(--white);
+        font-size: 18px;
+        color: #272727;
+        border: none;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+    }
+    &__btn {
+        margin: 30px 0 0;
+    }
+}
+
+.form-two {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__count {
+        font-size: 24px;
+        line-height: 1;
+        position: absolute;
+        top: -10px;
+        left: -35px;
+        transform: translate(-100%, 0);
+
+        &-big {
+            font-size: 120px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+    }
+    &__question {
+        font-size: 30px;
+        line-height: 1.33;
+        margin: 0 auto 40px;
+        width: 100%;
+    }
+    &__line {
+        margin: 0 0 50px;
+        width: 50%;
+        padding: 0 25px;
+
+        &_three {
+            width: 33.333333%;
+        }
+    }
+    &__btn {
+        width: 100%;
+    }
+}
+
+@include media-breakpoint-up(md)
+{
+    .form-two {
+
+        &__btn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: translate(0, 50%);
+            z-index: 2;
+            font-size: 0;
+            right: 0;
+        }
+    }
+}
+@include media-breakpoint-down(md)
+{
+    .form-two {
+
+        &__count {
+            top: -10px;
+            left: 50%;
+            transform: translate(-50%, -100%);
+
+            &-big {
+                font-size: 64px;
+            }
+        }
+        &__question {
+            font-size: 24px;
+            margin: 0 auto 25px;
+        }
+        &__line {
+            margin: 0 0 25px;
+            padding: 0 10px;
+        }
+    }
+}
+@include media-breakpoint-only(xs)
+{
+    .form-two {
+
+        &__question {
+            font-size: 18px;
+            margin: 0 auto 25px;
+        }
+    }
+}
+
+.input-radio {
+    position: relative;
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+    }
+    &__label {
+        height: 72px;
+        border-radius: 36px;
+        background-color: var(--white);
+        font-size: 18px;
+        font-weight: 700;
+        width: 100%;
+        display: flex;
+        cursor: pointer;
+        transition: all .3s linear;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: var(--peach);
+        }
+    }
+    &__input:checked ~ .input-radio__label {
+        background-color: var(--peach);
+    }
+}
+
+@include media-breakpoint-only(xs)
+{
+    .input-radio {
+
+        &__label {
+            font-size: 16px;
+        }
+    }
+}

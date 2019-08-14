@@ -1,0 +1,34 @@
+:root {
+    --black: #000;
+    --white: #FFF;
+
+    --grey: #272727;
+    --grey-light: #ececec;
+
+    --blue-dark: #008999;
+    --blue-light: #009fb2;
+
+    --peach: #ffc288;
+    --peach-next: #f5e1cc;
+    --peach-light: #fff0e1;
+
+    --dusty-orange: #ec913c;
+    --warm-pink: #e8656d;
+}
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1400px
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1370px
+);
+
+$gutter: 30px;
