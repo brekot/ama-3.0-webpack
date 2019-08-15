@@ -14,3 +14,11 @@
 .fslightbox-toolbar-button-close svg {
     display: none;
 }
+.fslightbox-slide-btn {
+    background: var(--blue-dark);
+    transition: all .3s linear;
+
+    &:hover {
+        background-color: var(--blue-light);
+    }
+}

@@ -190,7 +190,7 @@ function init() {
 /* - - - Прокрутка к элементу - - - */
 const anchors = [].slice.call(document.querySelectorAll('.go-to')),
       animationTime = 1000,
-      framesCount = 100;
+      framesCount = 50;
 
 anchors.forEach(function(item) {
     // каждому якорю присваиваем обработчик события
@@ -199,7 +199,7 @@ anchors.forEach(function(item) {
         e.preventDefault();
 
         // для каждого якоря берем соответствующий ему элемент и определяем его координату Y
-        let coordY = document.querySelector(item.getAttribute('href')).getBoundingClientRect().top;
+        let coordY = document.querySelector(item.getAttribute('href')).getBoundingClientRect().top + pageYOffset;
 
         // запускаем интервал, в котором
         let scroller = setInterval(function() {
