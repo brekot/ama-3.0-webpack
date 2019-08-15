@@ -71,7 +71,7 @@ module.exports = function (fsLightbox) {
         }
 
         if (shouldRenderButtons.close === true) {
-            let button = new DOMObject('div').addClassesAndCreate(['fslightbox-toolbar-button', 'fslightbox-flex-centered']);
+            let button = new DOMObject('div').addClassesAndCreate(['fslightbox-toolbar-button', 'fslightbox-toolbar-button-close', 'fslightbox-flex-centered']);
             let svg = new fsLightbox.SVGIcon().getSVGIcon('0 0 20 20', '16px', 'M 11.469 10 l 7.08 -7.08 c 0.406 -0.406 0.406 -1.064 0 -1.469 c -0.406 -0.406 -1.063 -0.406 -1.469 0 L 10 8.53 l -7.081 -7.08 c -0.406 -0.406 -1.064 -0.406 -1.469 0 c -0.406 0.406 -0.406 1.063 0 1.469 L 8.531 10 L 1.45 17.081 c -0.406 0.406 -0.406 1.064 0 1.469 c 0.203 0.203 0.469 0.304 0.735 0.304 c 0.266 0 0.531 -0.101 0.735 -0.304 L 10 11.469 l 7.08 7.081 c 0.203 0.203 0.469 0.304 0.735 0.304 c 0.267 0 0.532 -0.101 0.735 -0.304 c 0.406 -0.406 0.406 -1.064 0 -1.469 L 11.469 10 Z');
             button.appendChild(svg);
             button.onclick = function () {
@@ -179,7 +179,8 @@ module.exports = function (fsLightbox) {
             const counter = new slideCounter();
             counter.renderSlideCounter(fsLightbox.data.nav);
         }
-        container.appendChild(fsLightbox.data.nav);
+        //container.appendChild(fsLightbox.data.nav); - Прокрутка кнопок отключена / всегда в верхней части экрана
+        fsLightbox.mediaHolder.appendChild(fsLightbox.data.nav);
 
     };
 
@@ -313,15 +314,28 @@ module.exports = function (self) {
     let difference;
     let slideAble = true;
 
-
     const mouseDownEvent = function (e) {
         // tag can't be video cause it would be unclickable in microsoft browsers
         if (e.target.tagName !== 'VIDEO' && !e.touches) {
             e.preventDefault();
         }
-        if (e.target.classList.contains('fslightbox-source')) {
-            isSourceDownEventTarget = true;
+
+        var parents = document.querySelectorAll('.fslightbox-source');
+
+        for (var i = 0; i < parents.length; i++)
+        {
+            var parent = parents[i];
+
+            if (parent.contains(e.target))
+            {
+                isSourceDownEventTarget = true;
+            }
         }
+
+/*        if (e.target.classList.contains('fslightbox-source')) {
+            isSourceDownEventTarget = true;
+        }*/
+
         is_dragging = true;
         difference = 0;
 
@@ -772,13 +786,13 @@ window.fsLightboxClass = function () {
         slide: 1,
         totalSlides: 1,
         slideDistance: 1.3,
-        slideCounter: true,
+        slideCounter: false,
         slideButtons: true,
         isFirstTimeLoad: false,
         moveSlidesViaDrag: true,
         toolbarButtons: {
             "close": true,
-            "fullscreen": true
+            "fullscreen": false
         },
 
         name: '',
@@ -1117,6 +1131,12 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
         });
     };
 
+    const inlineLoad = function(elem, arrayIndex) {
+        elem = elem.replace("#", "");
+        element = document.getElementById(elem).cloneNode(true);
+        element.classList.add(['fslightbox-source']);
+        onloadListener(element, 0, 'auto', arrayIndex);
+    }
 
     const videoLoad = function (src, arrayIndex, type) {
         let videoLoaded = false;
@@ -1188,8 +1208,16 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
 
 
     this.createSourceElem = function (urlIndex) {
+
         const parser = document.createElement('a');
         const sourceUrl = fsLightbox.data.urls[urlIndex];
+
+        if (fsLightbox.data.urls[urlIndex].indexOf("#") == 0)
+        {
+            inlineLoad(fsLightbox.data.urls[urlIndex], urlIndex);
+
+            return;
+        }
 
         parser.href = sourceUrl;
 

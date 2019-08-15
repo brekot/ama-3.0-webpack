@@ -1,0 +1,16 @@
+.fslightbox-container {
+    background: rgba(255, 255, 255, 0.95);
+}
+.fslightbox-toolbar {
+    background: none;
+    right: 30px;
+    top: 30px;
+}
+.fslightbox-toolbar-button-close {
+    background: url(img/icon.close.svg) no-repeat center / cover;
+    height: 32px;
+    width: 32px;
+}
+.fslightbox-toolbar-button-close svg {
+    display: none;
+}

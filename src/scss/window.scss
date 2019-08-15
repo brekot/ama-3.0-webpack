@@ -3,6 +3,7 @@
     display: none;
     text-align: center;
     width: 100%;
+    padding: 30px 0;
 
     &__block {
         width: 100%;
@@ -21,6 +22,7 @@
 @include media-breakpoint-down(sm)
 {
     .window-one {
+        padding: 95px 15px 0;
 
         &__block {
             width: calc(100% + 50px);
@@ -39,6 +41,7 @@
     display: none;
     text-align: center;
     width: 100%;
+    padding: 30px 0;
 
     &__inner {
         max-width: 880px;
@@ -81,9 +84,12 @@
         &__mm {
             margin: 0 0 -55px;
         }
+        &__inner {
+            padding: 0 15px;
+        }
         &__block {
             padding: 25px 15px;
-            margin: 95px 0 35px;
+            margin: 95px -15px 35px;
         }
     }
 }
