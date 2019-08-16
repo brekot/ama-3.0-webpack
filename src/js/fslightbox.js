@@ -703,7 +703,6 @@ module.exports = function (fsLightbox) {
         fsLightbox.mediaHolder.insertBefore(curr, fsLightbox.data.sources[sourcesIndexes.next]);
     };
 
-
     this.previousSlideViaButton = function (previousSlide) {
         if (previousSlide === 1) {
             fsLightbox.data.slide = fsLightbox.data.totalSlides;
@@ -906,6 +905,15 @@ window.fsLightboxClass = function () {
      * Hide dom of existing fsLightbox instance
      */
     this.hide = function () {
+
+        if (fsLightbox.data.elementReplace)
+        {
+            fsLightbox.data.elementOpen.classList.remove('fslightbox-source');
+            fsLightbox.data.elementReplace.after(fsLightbox.data.elementOpen);
+            fsLightbox.data.elementReplace.remove();
+            delete window.fsLightboxInstances[fsLightbox.data.name];
+        }
+
         if (this.data.fullscreen) this.toolbar.closeFullscreen();
         this.element.classList.add('fslightbox-fade-out-complete');
         this.data.fadingOut = true;
@@ -1090,7 +1098,6 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
     const urls = fsLightbox.data.urls;
     const sources = fsLightbox.data.sources;
 
-
     const append = function (sourceHolder, sourceElem) {
         sourceHolder.innerHTML = '';
         sourceHolder.appendChild(sourceElem);
@@ -1112,6 +1119,17 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
         fsLightbox.onResizeEvent.scaleSource(arrayIndex);
     };
 
+    const inlineLoad = function(elem, arrayIndex) {
+        elem = elem.replace("#", "");
+        fsLightbox.data.elementOpen = document.getElementById(elem);
+
+        fsLightbox.data.elementReplace = document.createElement('div');
+        fsLightbox.data.elementOpen.after(fsLightbox.data.elementReplace);
+        fsLightbox.data.elementReplace.style.display = "none";
+
+        fsLightbox.data.elementOpen.classList.add(['fslightbox-source']);
+        onloadListener(fsLightbox.data.elementOpen, 0, 'auto', arrayIndex);
+    }
 
     const loadYoutubevideo = function (videoId, arrayIndex) {
         let iframe = new DOMObject('iframe').addClassesAndCreate(['fslightbox-source']);
@@ -1122,7 +1140,6 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
         onloadListener(iframe, 1920, 1080, arrayIndex);
     };
 
-
     const imageLoad = function (src, arrayIndex) {
         let sourceElem = new DOMObject('img').addClassesAndCreate(['fslightbox-source']);
         sourceElem.src = src;
@@ -1130,13 +1147,6 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
             onloadListener(sourceElem, this.width, this.height, arrayIndex);
         });
     };
-
-    const inlineLoad = function(elem, arrayIndex) {
-        elem = elem.replace("#", "");
-        element = document.getElementById(elem).cloneNode(true);
-        element.classList.add(['fslightbox-source']);
-        onloadListener(element, 0, 'auto', arrayIndex);
-    }
 
     const videoLoad = function (src, arrayIndex, type) {
         let videoLoaded = false;
@@ -1206,7 +1216,6 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
         onloadListener(invalidFileWrapper, window.innerWidth, window.innerHeight, arrayIndex);
     };
 
-
     this.createSourceElem = function (urlIndex) {
 
         const parser = document.createElement('a');
@@ -1264,7 +1273,6 @@ module.exports = function (fsLightbox, typeOfLoad, slide) {
             xhr.send(null);
         }
     };
-
 
     if (typeOfLoad === 'initial') {
         //append loader when loading initially
