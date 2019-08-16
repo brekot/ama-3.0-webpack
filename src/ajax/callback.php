@@ -7,5 +7,9 @@ $message .= 'Телефон: ' . $_REQUEST['phone'] . ' ; ';
 //mail('amalfimsk@gmail.com', 'Заявка с сайта', $message);
 mail('brekot@ya.ru', 'Заявка с сайта', $message);
 
-return 'ok';
+$result = array(
+    "status" => "ok"
+);
+
+echo json_encode($result);
 ?>

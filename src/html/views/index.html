@@ -517,11 +517,12 @@
                     <div class="h2" v-if="quizStep == 1">
                         Ответьте на <span class="h2-line"><span class="h2-line__word">несколько вопросов</span></span> и узнайте, сколько будет стоить кроватка, которую вы хотите
                     </div>
-                    <div class="h2 window-two__mm" v-if="quizStep == 6">
+                    <div class="h2 window-two__mm" v-if="quizStep == 6 && !isQuizSend">
                         Оставьте свои <span class="h2-line"><span class="h2-line__word">контактные</span></span> данные
                     </div>
-                    <div class="window-two__block" id="windowTwoBlock">
-                        <div class="window-two__form">
+                    <div class="window-two__block">
+                        <div class="h2" v-if="isQuizSend">Спасибо, Ваша заявка принята!</div>
+                        <div class="window-two__form" v-if="!isQuizSend">
                             <form action="/ajax/quiz.php" method="post" @submit.prevent="quizSend">
 
                                 <div class="form-two" v-if="quizStep == 1">
@@ -533,25 +534,25 @@
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="1 ребёнок" v-model="question1" id="q11">
+                                            <input class="input-radio__input" type="radio" value="1 ребёнок" v-model="question.num1" id="q11">
                                             <label class="input-radio__label" for="q11">1 ребёнок</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="2 ребёнка" v-model="question1" id="q12">
+                                            <input class="input-radio__input" type="radio" value="2 ребёнка" v-model="question.num1" id="q12">
                                             <label class="input-radio__label" for="q12">2 ребёнка</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="3 ребёнка" v-model="question1" id="q13">
+                                            <input class="input-radio__input" type="radio" value="3 ребёнка" v-model="question.num1" id="q13">
                                             <label class="input-radio__label" for="q13">3 ребёнка</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="Для взрослого" v-model="question1" id="q14">
+                                            <input class="input-radio__input" type="radio" value="Для взрослого" v-model="question.num1" id="q14">
                                             <label class="input-radio__label" for="q14">Для взрослого</label>
                                         </div>
                                     </div>
@@ -569,25 +570,25 @@
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="1-ярусная" v-model="question2" id="q21">
+                                            <input class="input-radio__input" type="radio" value="1-ярусная" v-model="question.num2" id="q21">
                                             <label class="input-radio__label" for="q21">1-ярусная</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="2-ярусная" v-model="question2" id="q22">
+                                            <input class="input-radio__input" type="radio" value="2-ярусная" v-model="question.num2" id="q22">
                                             <label class="input-radio__label" for="q22">2-ярусная</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="3-ярусная" v-model="question2" id="q23">
+                                            <input class="input-radio__input" type="radio" value="3-ярусная" v-model="question.num2" id="q23">
                                             <label class="input-radio__label" for="q23">3-ярусная</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="Индивидуальный проект" v-model="question2" id="q24">
+                                            <input class="input-radio__input" type="radio" value="Индивидуальный проект" v-model="question.num2" id="q24">
                                             <label class="input-radio__label" for="q24">Индивидуальный проект</label>
                                         </div>
                                     </div>
@@ -606,25 +607,25 @@
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="На этой неделе" v-model="question3" id="q31">
+                                            <input class="input-radio__input" type="radio" value="На этой неделе" v-model="question.num3" id="q31">
                                             <label class="input-radio__label" for="q31">На этой неделе</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="В этом месяце" v-model="question3" id="q32">
+                                            <input class="input-radio__input" type="radio" value="В этом месяце" v-model="question.num3" id="q32">
                                             <label class="input-radio__label" for="q32">В этом месяце</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="В этом квартале" v-model="question3" id="q33">
+                                            <input class="input-radio__input" type="radio" value="В этом квартале" v-model="question.num3" id="q33">
                                             <label class="input-radio__label" for="q33">В этом квартале</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="Другой срок" v-model="question3" id="q34">
+                                            <input class="input-radio__input" type="radio" value="Другой срок" v-model="question.num3" id="q34">
                                             <label class="input-radio__label" for="q34">Другой срок</label>
                                         </div>
                                     </div>
@@ -643,19 +644,19 @@
                                     </div>
                                     <div class="form-two__line form-two__line_three">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="Бук" v-model="question4" id="q41">
+                                            <input class="input-radio__input" type="radio" value="Бук" v-model="question.num4" id="q41">
                                             <label class="input-radio__label" for="q41">Бук</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line form-two__line_three">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="Сосна" v-model="question4" id="q42">
+                                            <input class="input-radio__input" type="radio" value="Сосна" v-model="question.num4" id="q42">
                                             <label class="input-radio__label" for="q42">Сосна</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line form-two__line_three">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="Другое" v-model="question4" id="q43">
+                                            <input class="input-radio__input" type="radio" value="Другое" v-model="question.num4" id="q43">
                                             <label class="input-radio__label" for="q43">Другое</label>
                                         </div>
                                     </div>
@@ -674,25 +675,25 @@
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="До 15 тыс.руб." v-model="question5" id="q51">
+                                            <input class="input-radio__input" type="radio" value="До 15 тыс.руб." v-model="question.num5" id="q51">
                                             <label class="input-radio__label" for="q51">До 15 тыс.руб.</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="15-25 тыс.руб." v-model="question5" id="q52">
+                                            <input class="input-radio__input" type="radio" value="15-25 тыс.руб." v-model="question.num5" id="q52">
                                             <label class="input-radio__label" for="q52">15-25 тыс.руб.</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="25-50 тыс.руб." v-model="question5" id="q53">
+                                            <input class="input-radio__input" type="radio" value="25-50 тыс.руб." v-model="question.num5" id="q53">
                                             <label class="input-radio__label" for="q53">25-50 тыс.руб.</label>
                                         </div>
                                     </div>
                                     <div class="form-two__line">
                                         <div class="input-radio">
-                                            <input class="input-radio__input" type="radio" value="50-100 тыс.руб." v-model="question5" id="q54">
+                                            <input class="input-radio__input" type="radio" value="50-100 тыс.руб." v-model="question.num5" id="q54">
                                             <label class="input-radio__label" for="q54">50-100 тыс.руб.</label>
                                         </div>
                                     </div>

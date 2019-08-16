@@ -16,7 +16,7 @@ Vue.use(VeeValidate, {
 });
 
 const ajax = axios.create({
-	baseURL: 'http://localhost:8080'
+	baseURL: 'http://a.brekot.ru'
 });
 
 var appPersonalForm = new Vue({
@@ -24,12 +24,15 @@ var appPersonalForm = new Vue({
 	data: {
         isMobule: false,
         isCallbackSend: false,
+        isQuizSend: false,
 		quizStep: 1,
-        question1: '',
-        question2: '',
-        question3: '',
-        question4: '',
-        question5: '',
+        question: {
+            num1: '',
+            num2: '',
+            num3: '',
+            num4: '',
+            num5: '',  
+        },
         pInfo: {
             name: '',
             phone: '',
@@ -47,9 +50,9 @@ var appPersonalForm = new Vue({
                 {
                     let strSend = 'Запрос цены: ';
 
-                    strSend += this.question1 + ' ' + this.question2 + ' ';
-                    strSend += this.question3 + ' ' + this.question4 + ' ';
-                    strSend += this.question5 + ' ';
+                    strSend += this.question.num1 + ' ' + this.question.num2 + ' ';
+                    strSend += this.question.num3 + ' ' + this.question.num4 + ' ';
+                    strSend += this.question.num5 + ' ';
 
                     location.href = 'https://wa.me/79869331000?text=' + strSend;
                 }
@@ -60,21 +63,20 @@ var appPersonalForm = new Vue({
 
 				if (result)
 				{
-		/*			const data = new FormData();
-
-					data.append('file', this.$refs.myFiles.files[0]);
+					const data = new FormData();
 
 					for (let value in this.pInfo) data.append(value, this.pInfo[value]);
+                    for (let value in this.question) data.append(value, this.question[value]);
 
-			 		ajax.post(this.pInfo.page, data)
+			 		ajax.post('/ajax/quiz.php', data)
 						.then((response) => {
 
 							if (response.data.status === 'ok')
 							{
-								this.sendSuccess = '<div class="alert alert-success">Профиль успешно обновлен</div><br><br>';
+                                this.isQuizSend = true;
 							}
-							else alert('Ошибка обновления данных');
-						});*/
+							else alert('Ошибка отправки запроса');
+						});
 				}
 				else return;
 			});
@@ -293,7 +295,7 @@ var appPersonalForm = new Vue({
 });
 
 /* - - - Карта - - - */
-ymaps.ready(init);
+setTimeout(() => { ymaps.ready(init);  }, 2000);
 
 function init() {
 
