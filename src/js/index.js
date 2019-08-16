@@ -1,160 +1,295 @@
+import Vue from 'vue/dist/vue.min.js';
+import VeeValidate from 'vee-validate/dist/vee-validate.min.js';
+import axios from 'axios/dist/axios.min.js';
 import fslightbox from './fslightbox.js';
 import { Swiper, Navigation, Pagination } from 'swiper/dist/js/swiper.esm.js';
+
 Swiper.use([Navigation, Pagination]);
 
-/* - - - Определение типа устройства - - - */
-function isMobile() {
-
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-/* - - - Главный слайдер - - - */
-var strSliderMain = 'main-slider';
-
-var sliderMain = new Swiper(document.querySelector('.' + strSliderMain + ' .swiper-container'), {
-    loop: true,
-    navigation: {
-        prevEl: document.querySelector('.' + strSliderMain + '__prev'),
-        nextEl: document.querySelector('.' + strSliderMain + '__next'),
-    },
+Vue.use(VeeValidate, {
+	classes: true,
+	classNames: {
+		valid: 'is-valid',
+		invalid: 'is-invalid'
+	},
+	events: 'blur',
 });
 
-/* - - - Слайдер продукты - - - */
-var strProductsSlider = 'products-slider';
-
-var sliderProducts = new Swiper(document.querySelector('.' + strProductsSlider + ' .swiper-container'), {
-    loop: true,
-    spaceBetween: 50,
-    slidesPerView: 4,
-    breakpoints: {
-        1399: {
-            spaceBetween: 30
-        },
-        991: {
-            slidesPerView: 3,
-            spaceBetween: 30
-        },
-        767: {
-            slidesPerView: 2,
-            spaceBetween: 30
-        },
-        576: {
-            slidesPerView: 2,
-            spaceBetween: 20
-        },
-    },
-    navigation: {
-        prevEl: document.querySelector('.' + strProductsSlider + '__prev'),
-        nextEl: document.querySelector('.' + strProductsSlider + '__next'),
-    },
+const ajax = axios.create({
+	baseURL: 'http://localhost:8080'
 });
 
-/* - - - Слайдер причины - - - */
-var strReasonSlider = 'reason-slider';
+var appPersonalForm = new Vue({
+	el: '#app',
+	data: {
+        isMobule: false,
+        isCallbackSend: false,
+		quizStep: 1,
+        question1: '',
+        question2: '',
+        question3: '',
+        question4: '',
+        question5: '',
+        pInfo: {
+            name: '',
+            phone: '',
+            email: ''
+        }
+	},
+	methods: {
+		toggleQuestion(num) {
 
-var sliderReason = new Swiper(document.querySelector('.' + strReasonSlider + ' .swiper-container'), {
-    loop: true,
-    spaceBetween: 50,
-    slidesPerView: 5,
-    breakpoints: {
-        1399: {
+            this.quizStep = num;
+
+            if (num == 6)
+            {
+                if (this.isMobule)
+                {
+                    let strSend = 'Запрос цены: ';
+
+                    strSend += this.question1 + ' ' + this.question2 + ' ';
+                    strSend += this.question3 + ' ' + this.question4 + ' ';
+                    strSend += this.question5 + ' ';
+
+                    location.href = 'https://wa.me/79869331000?text=' + strSend;
+                }
+            }
+		},
+		quizSend() {
+			this.$validator.validateAll().then((result) => {
+
+				if (result)
+				{
+		/*			const data = new FormData();
+
+					data.append('file', this.$refs.myFiles.files[0]);
+
+					for (let value in this.pInfo) data.append(value, this.pInfo[value]);
+
+			 		ajax.post(this.pInfo.page, data)
+						.then((response) => {
+
+							if (response.data.status === 'ok')
+							{
+								this.sendSuccess = '<div class="alert alert-success">Профиль успешно обновлен</div><br><br>';
+							}
+							else alert('Ошибка обновления данных');
+						});*/
+				}
+				else return;
+			});
+		},
+        callbackSend() {
+			this.$validator.validateAll().then((result) => {
+
+				if (result)
+				{
+					const data = new FormData();
+
+					for (let value in this.pInfo) data.append(value, this.pInfo[value]);
+
+			 		ajax.post('/ajax/callback.php', data)
+						.then((response) => {
+
+							if (response.data.status === 'ok')
+							{
+                                this.isCallbackSend = true;
+							}
+							else alert('Ошибка отправки запроса');
+						});
+				}
+				else return;
+			});
+        }
+	},
+    mounted() {
+
+        /* - - - Определение типа устройства - - - */
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))
+        {
+            this.isMobule = true;
+        }
+        else
+        {
+            this.isMobule = false;
+        }
+
+        /* - - - Главный слайдер - - - */
+        var strSliderMain = 'main-slider';
+
+        var sliderMain = new Swiper(document.querySelector('.' + strSliderMain + ' .swiper-container'), {
+            loop: true,
+            navigation: {
+                prevEl: document.querySelector('.' + strSliderMain + '__prev'),
+                nextEl: document.querySelector('.' + strSliderMain + '__next'),
+            },
+        });
+
+        /* - - - Слайдер продукты - - - */
+        var strProductsSlider = 'products-slider';
+
+        var sliderProducts = new Swiper(document.querySelector('.' + strProductsSlider + ' .swiper-container'), {
+            loop: true,
+            spaceBetween: 50,
             slidesPerView: 4,
-            spaceBetween: 30
-        },
-        991: {
+            breakpoints: {
+                1399: {
+                    spaceBetween: 30
+                },
+                991: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+            },
+            navigation: {
+                prevEl: document.querySelector('.' + strProductsSlider + '__prev'),
+                nextEl: document.querySelector('.' + strProductsSlider + '__next'),
+            },
+        });
+
+        /* - - - Слайдер причины - - - */
+        var strReasonSlider = 'reason-slider';
+
+        var sliderReason = new Swiper(document.querySelector('.' + strReasonSlider + ' .swiper-container'), {
+            loop: true,
+            spaceBetween: 50,
+            slidesPerView: 5,
+            breakpoints: {
+                1399: {
+                    slidesPerView: 4,
+                    spaceBetween: 30
+                },
+                991: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+            }
+        });
+
+        /* - - - Слайдер проект - - - */
+        var strProjectSlider = 'project-slider';
+
+        var sliderProject = new Swiper(document.querySelector('.' + strProjectSlider + ' .swiper-container'), {
+            loop: true,
+            slidesPerView: 1,
+            navigation: {
+                prevEl: document.querySelector('.' + strProjectSlider + '__prev'),
+                nextEl: document.querySelector('.' + strProjectSlider + '__next'),
+            },
+        });
+
+        /* - - - Слайдер команда - - - */
+        var strTeamSlider = 'team-slider';
+
+        document.querySelector('.' + strTeamSlider + '__count-small').textContent = document.querySelectorAll('.' + strTeamSlider + '__slide').length;
+
+        var sliderTeam = new Swiper(document.querySelector('.' + strTeamSlider + ' .swiper-container'), {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            navigation: {
+                prevEl: document.querySelector('.' + strTeamSlider + '__prev'),
+                nextEl: document.querySelector('.' + strTeamSlider + '__next'),
+            },
+        });
+
+        sliderTeam.on('slideChange', function () {
+
+            document.querySelector('.' + strTeamSlider + '__count-big').textContent = sliderTeam.realIndex + 1;
+        });
+
+        /* - - - Слайдер отзывы (картинки) - - - */
+        var strReviewPict = 'review-pict';
+
+        var sliderPict = new Swiper(document.querySelector('.' + strReviewPict + ' .swiper-container'), {
+            loop: true,
+            spaceBetween: 50,
             slidesPerView: 3,
-            spaceBetween: 30
-        },
-        767: {
-            slidesPerView: 2,
-            spaceBetween: 20
-        },
+            breakpoints: {
+                1399: {
+                    spaceBetween: 30
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+            },
+            pagination: {
+                el: '.' + strReviewPict + '__pagination',
+                bulletClass: strReviewPict + '__bullet',
+                bulletActiveClass: strReviewPict + '__bullet_active',
+            },
+        });
+
+        /* - - - Слайдер отзывы (видео) - - - */
+        var strReviewVideo = 'review-video';
+
+        var sliderVideo = new Swiper(document.querySelector('.' + strReviewVideo + ' .swiper-container'), {
+            loop: true,
+            spaceBetween: 50,
+            slidesPerView: 3,
+            breakpoints: {
+                1399: {
+                    spaceBetween: 30
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+            },
+            pagination: {
+                el: '.' + strReviewVideo + '__pagination',
+                bulletClass: strReviewVideo + '__bullet',
+                bulletActiveClass: strReviewVideo + '__bullet_active',
+            },
+        });
+
+        /* - - - Прокрутка к элементу - - - */
+        const anchors = [].slice.call(document.querySelectorAll('.go-to')),
+              animationTime = 1000,
+              framesCount = 50;
+
+        anchors.forEach(function(item) {
+            // каждому якорю присваиваем обработчик события
+            item.addEventListener('click', function(e) {
+                // убираем стандартное поведение
+                e.preventDefault();
+
+                // для каждого якоря берем соответствующий ему элемент и определяем его координату Y
+                let coordY = document.querySelector(item.getAttribute('href')).getBoundingClientRect().top + pageYOffset;
+
+                // запускаем интервал, в котором
+                let scroller = setInterval(function() {
+                    // считаем на сколько скроллить за 1 такт
+                    let scrollBy = coordY / framesCount;
+
+                    // если к-во пикселей для скролла за 1 такт больше расстояния до элемента
+                    // и дно страницы не достигнуто
+                    if(scrollBy > window.pageYOffset - coordY && window.innerHeight + window.pageYOffset < document.body.offsetHeight) {
+                    // то скроллим на к-во пикселей, которое соответствует одному такту
+                        window.scrollBy(0, scrollBy);
+                    } else {
+                        // иначе добираемся до элемента и выходим из интервала
+                        window.scrollTo(0, coordY);
+                        clearInterval(scroller);
+                    }
+                    // время интервала равняется частному от времени анимации и к-ва кадров
+                }, animationTime / framesCount);
+            });
+        });
     }
-});
-
-/* - - - Слайдер проект - - - */
-var strProjectSlider = 'project-slider';
-
-var sliderProject = new Swiper(document.querySelector('.' + strProjectSlider + ' .swiper-container'), {
-    loop: true,
-    slidesPerView: 1,
-    navigation: {
-        prevEl: document.querySelector('.' + strProjectSlider + '__prev'),
-        nextEl: document.querySelector('.' + strProjectSlider + '__next'),
-    },
-});
-
-/* - - - Слайдер команда - - - */
-var strTeamSlider = 'team-slider';
-
-document.querySelector('.' + strTeamSlider + '__count-small').textContent = document.querySelectorAll('.' + strTeamSlider + '__slide').length;
-
-var sliderTeam = new Swiper(document.querySelector('.' + strTeamSlider + ' .swiper-container'), {
-    loop: true,
-    slidesPerView: 1,
-    spaceBetween: 30,
-    navigation: {
-        prevEl: document.querySelector('.' + strTeamSlider + '__prev'),
-        nextEl: document.querySelector('.' + strTeamSlider + '__next'),
-    },
-});
-
-sliderTeam.on('slideChange', function () {
-
-    document.querySelector('.' + strTeamSlider + '__count-big').textContent = sliderTeam.realIndex + 1;
-});
-
-/* - - - Слайдер отзывы (картинки) - - - */
-var strReviewPict = 'review-pict';
-
-var sliderPict = new Swiper(document.querySelector('.' + strReviewPict + ' .swiper-container'), {
-    loop: true,
-    spaceBetween: 50,
-    slidesPerView: 3,
-    breakpoints: {
-        1399: {
-            spaceBetween: 30
-        },
-        767: {
-            slidesPerView: 2,
-            spaceBetween: 20
-        },
-    },
-    pagination: {
-        el: '.' + strReviewPict + '__pagination',
-        bulletClass: strReviewPict + '__bullet',
-        bulletActiveClass: strReviewPict + '__bullet_active',
-    },
-});
-
-/* - - - Слайдер отзывы (видео) - - - */
-var strReviewVideo = 'review-video';
-
-var sliderVideo = new Swiper(document.querySelector('.' + strReviewVideo + ' .swiper-container'), {
-    loop: true,
-    spaceBetween: 50,
-    slidesPerView: 3,
-    breakpoints: {
-        1399: {
-            spaceBetween: 30
-        },
-        767: {
-            slidesPerView: 2,
-            spaceBetween: 20
-        },
-    },
-    pagination: {
-        el: '.' + strReviewVideo + '__pagination',
-        bulletClass: strReviewVideo + '__bullet',
-        bulletActiveClass: strReviewVideo + '__bullet_active',
-    },
 });
 
 /* - - - Карта - - - */
@@ -186,112 +321,3 @@ function init() {
 
     myMap.geoObjects.add(myPlacemark);
 }
-
-/* - - - Прокрутка к элементу - - - */
-const anchors = [].slice.call(document.querySelectorAll('.go-to')),
-      animationTime = 1000,
-      framesCount = 50;
-
-anchors.forEach(function(item) {
-    // каждому якорю присваиваем обработчик события
-    item.addEventListener('click', function(e) {
-        // убираем стандартное поведение
-        e.preventDefault();
-
-        // для каждого якоря берем соответствующий ему элемент и определяем его координату Y
-        let coordY = document.querySelector(item.getAttribute('href')).getBoundingClientRect().top + pageYOffset;
-
-        // запускаем интервал, в котором
-        let scroller = setInterval(function() {
-            // считаем на сколько скроллить за 1 такт
-            let scrollBy = coordY / framesCount;
-
-            // если к-во пикселей для скролла за 1 такт больше расстояния до элемента
-            // и дно страницы не достигнуто
-            if(scrollBy > window.pageYOffset - coordY && window.innerHeight + window.pageYOffset < document.body.offsetHeight) {
-            // то скроллим на к-во пикселей, которое соответствует одному такту
-                window.scrollBy(0, scrollBy);
-            } else {
-                // иначе добираемся до элемента и выходим из интервала
-                window.scrollTo(0, coordY);
-                clearInterval(scroller);
-            }
-            // время интервала равняется частному от времени анимации и к-ва кадров
-        }, animationTime / framesCount);
-    });
-});
-
-$(function() {
-
-    /* - - - Переход по вопросам - - - */
-    $('.btn-next').click(function(){
-
-        var nextId = $(this).data('next');
-
-        if (nextId > 1)
-        {
-            $('.window-two .h2').hide();
-        }
-
-        if (nextId == 6)
-        {
-            if (isMobile())
-            {
-                var strSend = 'Запрос цены: ';
-
-                strSend += $('[name="question1"]').val() + ' ' + $('[name="question2"]').val() + ' ';
-                strSend += $('[name="question3"]').val() + ' ' + $('[name="question4"]').val() + ' ';
-                strSend += $('[name="question5"]').val() + ' ';
-
-                location.href = 'https://wa.me/79869331000?text=' + strSend;
-            }
-
-            $('#question6-title').removeClass('d-none').show();
-        }
-
-        $('.form-two').addClass('d-none');
-        $('#question' + nextId).removeClass('d-none');
-    });
-
-    /* - - - Отправка запроса - - - */
-    $('#callbackSend').on('submit', function(){
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: "POST",
-            data: $(this).serialize(),
-            success: (res) => {
-
-                $('#windowOne .h2').remove();
-                $('#windowOneBlock').html('<div class="h2">Спасибо, Ваша заявка принята!</div>');
-            },
-            error: (res) => {
-
-                alert('Ошибка отправки запроса');
-            }
-        });
-
-        return false;
-    });
-
-    /* - - - Отправка квиза - - - */
-    $('#quizSend').on('submit', function(){
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: "POST",
-            data: $(this).serialize(),
-            success: (res) => {
-
-                $('#windowTwo .h2').remove();
-                $('#windowTwoBlock').html('<div class="h2">Спасибо, Ваша заявка принята!</div>');
-            },
-            error: (res) => {
-
-                alert('Ошибка отправки запроса');
-            }
-        });
-
-        return false;
-    });
-});

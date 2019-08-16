@@ -316,7 +316,8 @@ module.exports = function (self) {
 
     const mouseDownEvent = function (e) {
         // tag can't be video cause it would be unclickable in microsoft browsers
-        if (e.target.tagName !== 'VIDEO' && !e.touches) {
+        if (e.target.tagName !== 'VIDEO' && !e.touches && !self.data.elementOpen)
+        {
             e.preventDefault();
         }
 
@@ -498,7 +499,6 @@ module.exports = function (self) {
     const preventDefaultEvent = function (e) {
         e.preventDefault();
     };
-
 
     for (let elem in elements) {
         elements[elem].addEventListener('mousedown', mouseDownEvent);
@@ -900,7 +900,6 @@ window.fsLightboxClass = function () {
         this.throwEvent('open');
     };
 
-
     /**
      * Hide dom of existing fsLightbox instance
      */
@@ -1054,7 +1053,7 @@ window.fsLightboxClass = function () {
 
     document.addEventListener('click', function(event) {
 
-        if (event.target.matches('[data-fslightbox]') || event.target.parentNode.matches('[data-fslightbox]'))
+        if (event.target.matches('[data-fslightbox]') || (event.target.parentNode && event.target.parentNode.matches('[data-fslightbox]')))
         {
             event.preventDefault();
 

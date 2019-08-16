@@ -7,7 +7,7 @@
         <title>Amalfi</title>
     </head>
     <body>
-        <div class="position-relative">
+        <div class="position-relative" id="app">
             <header class="header-main">
                 <div class="container">
                     <div class="header-main__block">
@@ -457,246 +457,296 @@
                     </div>
                 </div>
             </footer>
-        </div>
 
-        <div class="window-one" id="windowOne">
-            <div class="h2">
-                Оставьте свои <span class="h2-line"><span class="h2-line__word">контактные</span></span> данные
-            </div>
-            <div class="window-one__block" id="windowOneBlock">
-                <div class="window-one__text">
-                    Наши специалисты помогут выбрать самую классную кровать для Вашего ребенка и ответят на все вопросы
-                </div>
-                <div class="window-one__form">
-                    <form action="/ajax/callback.php" method="post" id="callbackSend">
-                        <div class="form-one">
-                            <div class="form-one__line">
-                                <input class="form-one__input" type="text" name="callback_name" placeholder="Ваше имя" required>
-                            </div>
-                            <div class="form-one__line">
-                                <input class="form-one__input" type="email" name="callback_email" placeholder="Ваша почта" required>
-                            </div>
-                            <div class="form-one__line">
-                                <input class="form-one__input" type="tel" name="callback_phone" placeholder="Номер телефона" required>
-                            </div>
-                            <div class="form-one__btn">
-                                <input class="btn-second btn-full-width" type="submit" value="Получить каталог">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="window-two" id="windowTwo">
-            <div class="window-two__inner">
-                <div class="h2">
-                    Ответьте на <span class="h2-line"><span class="h2-line__word">несколько вопросов</span></span> и узнайте, сколько будет стоить кроватка, которую вы хотите
-                </div>
-                <div class="h2 window-two__mm d-none" id="question6-title">
+           <div class="window-one" id="windowOne">
+                <div class="h2" v-if="!isCallbackSend">
                     Оставьте свои <span class="h2-line"><span class="h2-line__word">контактные</span></span> данные
                 </div>
-                <div class="window-two__block" id="windowTwoBlock">
-                    <div class="window-two__form">
-                        <form action="/ajax/quiz.php" method="post" id="quizSend">
-
-                            <div class="form-two" id="question1">
-                                <div class="form-two__count">
-                                    <span class="form-two__count-big">1</span> / <span class="form-two__count-small">5</span>
-                                </div>
-                                <div class="form-two__question">
-                                    Для какого количества детей нужна кроватка?
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="1 ребёнок" name="question1" id="q11">
-                                        <label class="input-radio__label" for="q11">1 ребёнок</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="2 ребёнка" name="question1" id="q12">
-                                        <label class="input-radio__label" for="q12">2 ребёнка</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="3 ребёнка" name="question1" id="q13">
-                                        <label class="input-radio__label" for="q13">3 ребёнка</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="Для взрослого" name="question1" id="q14">
-                                        <label class="input-radio__label" for="q14">Для взрослого</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__btn">
-                                    <a href="javascript:;" class="btn-second btn-second_str-next btn-next" data-next="2">Следующий вопрос</a>
-                                </div>
-                            </div>
-
-                            <div class="form-two d-none" id="question2">
-                                <div class="form-two__count">
-                                    <span class="form-two__count-big">2</span> / <span class="form-two__count-small">5</span>
-                                </div>
-                                <div class="form-two__question">
-                                    Какой тип кроватки Вам нужен?
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="1-ярусная" name="question2" id="q21">
-                                        <label class="input-radio__label" for="q21">1-ярусная</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="2-ярусная" name="question2" id="q22">
-                                        <label class="input-radio__label" for="q22">2-ярусная</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="3-ярусная" name="question2" id="q23">
-                                        <label class="input-radio__label" for="q23">3-ярусная</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="Индивидуальный проект" name="question2" id="q24">
-                                        <label class="input-radio__label" for="q24">Индивидуальный проект</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__btn">
-                                    <a href="javascript:;" class="btn-second btn-second_str-prev btn-next" data-next="1"></a>
-                                    <a href="javascript:;" class="btn-second btn-second_str-next btn-next" data-next="3">Следующий вопрос</a>
-                                </div>
-                            </div>
-
-                            <div class="form-two d-none" id="question3">
-                                <div class="form-two__count">
-                                    <span class="form-two__count-big">3</span> / <span class="form-two__count-small">5</span>
-                                </div>
-                                <div class="form-two__question">
-                                    Когда нужна кроватка?
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="На этой неделе" name="question3" id="q31">
-                                        <label class="input-radio__label" for="q31">На этой неделе</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="В этом месяце" name="question3" id="q32">
-                                        <label class="input-radio__label" for="q32">В этом месяце</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="В этом квартале" name="question3" id="q33">
-                                        <label class="input-radio__label" for="q33">В этом квартале</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="Другой срок" name="question3" id="q34">
-                                        <label class="input-radio__label" for="q34">Другой срок</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__btn">
-                                    <a href="javascript:;" class="btn-second btn-second_str-prev btn-next" data-next="2"></a>
-                                    <a href="javascript:;" class="btn-second btn-second_str-next btn-next" data-next="4">Следующий вопрос</a>
-                                </div>
-                            </div>
-
-                            <div class="form-two form-two d-none" id="question4">
-                                <div class="form-two__count">
-                                    <span class="form-two__count-big">4</span> / <span class="form-two__count-small">5</span>
-                                </div>
-                                <div class="form-two__question">
-                                    Из какого материала вы бы хотели кроватку?
-                                </div>
-                                <div class="form-two__line form-two__line_three">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="Бук" name="question4" id="q41">
-                                        <label class="input-radio__label" for="q41">Бук</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line form-two__line_three">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="Сосна" name="question4" id="q42">
-                                        <label class="input-radio__label" for="q42">Сосна</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line form-two__line_three">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="Другое" name="question4" id="q43">
-                                        <label class="input-radio__label" for="q43">Другое</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__btn">
-                                    <a href="javascript:;" class="btn-second btn-second_str-prev btn-next" data-next="3"></a>
-                                    <a href="javascript:;" class="btn-second btn-second_str-next btn-next" data-next="5">Следующий вопрос</a>
-                                </div>
-                            </div>
-
-                            <div class="form-two d-none" id="question5">
-                                <div class="form-two__count">
-                                    <span class="form-two__count-big">5</span> / <span class="form-two__count-small">5</span>
-                                </div>
-                                <div class="form-two__question">
-                                    Ваш примерный бюджет?
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="До 15 тыс.руб." name="question5" id="q51">
-                                        <label class="input-radio__label" for="q51">До 15 тыс.руб.</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="15-25 тыс.руб." name="question5" id="q52">
-                                        <label class="input-radio__label" for="q52">15-25 тыс.руб.</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="25-50 тыс.руб." name="question5" id="q53">
-                                        <label class="input-radio__label" for="q53">25-50 тыс.руб.</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__line">
-                                    <div class="input-radio">
-                                        <input class="input-radio__input" type="radio" value="50-100 тыс.руб." name="question5" id="q54">
-                                        <label class="input-radio__label" for="q54">50-100 тыс.руб.</label>
-                                    </div>
-                                </div>
-                                <div class="form-two__btn">
-                                    <a href="javascript:;" class="btn-second btn-second_str-prev btn-next" data-next="4"></a>
-                                    <a href="javascript:;" class="btn-second btn-second_str-next btn-next" data-next="6">Следующий вопрос</a>
-                                </div>
-                            </div>
-
-                            <div class="form-one d-none" id="question6">
+                <div class="window-one__block" id="windowOneBlock">
+                    <div class="h2" v-if="isCallbackSend">Спасибо, Ваша заявка принята!</div>
+                    <div class="window-one__text" v-if="!isCallbackSend">
+                        Наши специалисты помогут выбрать самую классную кровать для Вашего ребенка и ответят на все вопросы
+                    </div>
+                    <div class="window-one__form" v-if="!isCallbackSend">
+                        <form action="/ajax/callback.php" method="post" @submit.prevent="callbackSend">
+                            <div class="form-one">
                                 <div class="form-one__line">
-                                    <input class="form-one__input" type="text" name="quiz_name" placeholder="Ваше имя" required>
+                                    <input
+                                        class="form-one__input"
+                                        type="text"
+                                        name="name"
+                                        placeholder="Ваше имя"
+                                        required
+                                        v-model="pInfo.name"
+                                        v-validate="'required|min:3'"
+                                    >
                                 </div>
                                 <div class="form-one__line">
-                                    <input class="form-one__input" type="email" name="quiz_email" placeholder="Ваша почта" required>
+                                    <input
+                                        class="form-one__input"
+                                        type="email"
+                                        name="email"
+                                        placeholder="Ваша почта"
+                                        required
+                                        v-model="pInfo.email"
+                                        v-validate="'required|email'"
+                                    >
                                 </div>
                                 <div class="form-one__line">
-                                    <input class="form-one__input" type="tel" name="quiz_phone" placeholder="Номер телефона" required>
+                                    <input
+                                        class="form-one__input"
+                                        type="tel"
+                                        name="phone"
+                                        placeholder="Номер телефона"
+                                        required
+                                        v-model="pInfo.phone"
+                                        v-validate="'required|min:7'"
+                                    >
                                 </div>
                                 <div class="form-one__btn">
                                     <input class="btn-second btn-full-width" type="submit" value="Получить каталог">
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
+
+            <div class="window-two" id="windowTwo">
+                <div class="window-two__inner">
+                    <div class="h2" v-if="quizStep == 1">
+                        Ответьте на <span class="h2-line"><span class="h2-line__word">несколько вопросов</span></span> и узнайте, сколько будет стоить кроватка, которую вы хотите
+                    </div>
+                    <div class="h2 window-two__mm" v-if="quizStep == 6">
+                        Оставьте свои <span class="h2-line"><span class="h2-line__word">контактные</span></span> данные
+                    </div>
+                    <div class="window-two__block" id="windowTwoBlock">
+                        <div class="window-two__form">
+                            <form action="/ajax/quiz.php" method="post" @submit.prevent="quizSend">
+
+                                <div class="form-two" v-if="quizStep == 1">
+                                    <div class="form-two__count">
+                                        <span class="form-two__count-big">1</span> / <span class="form-two__count-small">5</span>
+                                    </div>
+                                    <div class="form-two__question">
+                                        Для какого количества детей нужна кроватка?
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="1 ребёнок" v-model="question1" id="q11">
+                                            <label class="input-radio__label" for="q11">1 ребёнок</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="2 ребёнка" v-model="question1" id="q12">
+                                            <label class="input-radio__label" for="q12">2 ребёнка</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="3 ребёнка" v-model="question1" id="q13">
+                                            <label class="input-radio__label" for="q13">3 ребёнка</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="Для взрослого" v-model="question1" id="q14">
+                                            <label class="input-radio__label" for="q14">Для взрослого</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__btn">
+                                        <a href="javascript:;" class="btn-second btn-second_str-next" @click="toggleQuestion(2)">Следующий вопрос</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-two" v-if="quizStep == 2">
+                                    <div class="form-two__count">
+                                        <span class="form-two__count-big">2</span> / <span class="form-two__count-small">5</span>
+                                    </div>
+                                    <div class="form-two__question">
+                                        Какой тип кроватки Вам нужен?
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="1-ярусная" v-model="question2" id="q21">
+                                            <label class="input-radio__label" for="q21">1-ярусная</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="2-ярусная" v-model="question2" id="q22">
+                                            <label class="input-radio__label" for="q22">2-ярусная</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="3-ярусная" v-model="question2" id="q23">
+                                            <label class="input-radio__label" for="q23">3-ярусная</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="Индивидуальный проект" v-model="question2" id="q24">
+                                            <label class="input-radio__label" for="q24">Индивидуальный проект</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__btn">
+                                        <a href="javascript:;" class="btn-second btn-second_str-prev" @click="toggleQuestion(1)"></a>
+                                        <a href="javascript:;" class="btn-second btn-second_str-next" @click="toggleQuestion(3)">Следующий вопрос</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-two" v-if="quizStep == 3">
+                                    <div class="form-two__count">
+                                        <span class="form-two__count-big">3</span> / <span class="form-two__count-small">5</span>
+                                    </div>
+                                    <div class="form-two__question">
+                                        Когда нужна кроватка?
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="На этой неделе" v-model="question3" id="q31">
+                                            <label class="input-radio__label" for="q31">На этой неделе</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="В этом месяце" v-model="question3" id="q32">
+                                            <label class="input-radio__label" for="q32">В этом месяце</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="В этом квартале" v-model="question3" id="q33">
+                                            <label class="input-radio__label" for="q33">В этом квартале</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="Другой срок" v-model="question3" id="q34">
+                                            <label class="input-radio__label" for="q34">Другой срок</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__btn">
+                                        <a href="javascript:;" class="btn-second btn-second_str-prev" @click="toggleQuestion(2)"></a>
+                                        <a href="javascript:;" class="btn-second btn-second_str-next" @click="toggleQuestion(4)">Следующий вопрос</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-two" v-if="quizStep == 4">
+                                    <div class="form-two__count">
+                                        <span class="form-two__count-big">4</span> / <span class="form-two__count-small">5</span>
+                                    </div>
+                                    <div class="form-two__question">
+                                        Из какого материала вы бы хотели кроватку?
+                                    </div>
+                                    <div class="form-two__line form-two__line_three">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="Бук" v-model="question4" id="q41">
+                                            <label class="input-radio__label" for="q41">Бук</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line form-two__line_three">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="Сосна" v-model="question4" id="q42">
+                                            <label class="input-radio__label" for="q42">Сосна</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line form-two__line_three">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="Другое" v-model="question4" id="q43">
+                                            <label class="input-radio__label" for="q43">Другое</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__btn">
+                                        <a href="javascript:;" class="btn-second btn-second_str-prev" @click="toggleQuestion(3)"></a>
+                                        <a href="javascript:;" class="btn-second btn-second_str-next" @click="toggleQuestion(5)">Следующий вопрос</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-two" v-if="quizStep == 5">
+                                    <div class="form-two__count">
+                                        <span class="form-two__count-big">5</span> / <span class="form-two__count-small">5</span>
+                                    </div>
+                                    <div class="form-two__question">
+                                        Ваш примерный бюджет?
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="До 15 тыс.руб." v-model="question5" id="q51">
+                                            <label class="input-radio__label" for="q51">До 15 тыс.руб.</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="15-25 тыс.руб." v-model="question5" id="q52">
+                                            <label class="input-radio__label" for="q52">15-25 тыс.руб.</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="25-50 тыс.руб." v-model="question5" id="q53">
+                                            <label class="input-radio__label" for="q53">25-50 тыс.руб.</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__line">
+                                        <div class="input-radio">
+                                            <input class="input-radio__input" type="radio" value="50-100 тыс.руб." v-model="question5" id="q54">
+                                            <label class="input-radio__label" for="q54">50-100 тыс.руб.</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-two__btn">
+                                        <a href="javascript:;" class="btn-second btn-second_str-prev" @click="toggleQuestion(4)"></a>
+                                        <a href="javascript:;" class="btn-second btn-second_str-next" @click="toggleQuestion(6)">Следующий вопрос</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-one" v-if="quizStep == 6">
+                                    <div class="form-one__line">
+                                        <input
+                                            class="form-one__input"
+                                            type="text"
+                                            name="quiz_name"
+                                            placeholder="Ваше имя"
+                                            required
+                                            v-model="pInfo.name"
+                                            v-validate="'required|min:3'"
+                                        >
+                                    </div>
+                                    <div class="form-one__line">
+                                        <input
+                                            class="form-one__input"
+                                            type="email"
+                                            name="quiz_email"
+                                            placeholder="Ваша почта"
+                                            required
+                                            v-model="pInfo.email"
+                                            v-validate="'required|email'"
+                                        >
+                                    </div>
+                                    <div class="form-one__line">
+                                        <input
+                                            class="form-one__input"
+                                            type="tel"
+                                            name="quiz_phone"
+                                            placeholder="Номер телефона"
+                                            required
+                                            v-model="pInfo.phone"
+                                            v-validate="'required|min:7'"
+                                        >
+                                    </div>
+                                    <div class="form-one__btn">
+                                        <input class="btn-second btn-full-width" type="submit" value="Получить каталог">
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <script src="//api-maps.yandex.ru/2.1.74/?lang=ru_RU"></script>

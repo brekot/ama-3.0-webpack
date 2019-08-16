@@ -118,10 +118,19 @@
         padding: 0;
         width: 100%;
         text-align: center;
+        border: 1px solid var(--white);
+        box-shadow: none;
     }
     &__btn {
         margin: 30px 0 0;
     }
+}
+
+.is-valid {
+    border-color: var(--blue-light);
+}
+.is-invalid {
+    border-color: var(--red);
 }
 
 .form-two {
