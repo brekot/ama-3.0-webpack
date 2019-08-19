@@ -105,6 +105,10 @@ const config = {
                 to: "./local/img"
             },
             {
+                from: "./src/uploads",
+                to: "./local/uploads"
+            },
+            {
                 from: "./src/ajax",
                 to: "./ajax"
             },

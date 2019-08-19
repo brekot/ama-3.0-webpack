@@ -529,6 +529,7 @@
         &__name {
             left: 15px;
             bottom: 35px;
+            max-width: 170px;
         }
         &__str {
             right: 15px;
@@ -704,6 +705,9 @@
     }
     &__name {
         font-weight: bold;
+    }
+    &__price {
+        white-space: nowrap;
     }
     &__str {
         margin: 65px 0 0 230px;
@@ -1447,6 +1451,22 @@
         border: 1px solid var(--peach);
     }
 }
+.review-video {
+
+    &__img {
+        position: relative;
+
+        &:after {
+            background: url(img/icon.ig.video.svg) no-repeat 50%;
+            content: "";
+            height: 33px;
+            width: 33px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}
 
 @include media-breakpoint-down(sm)
 {
@@ -1480,6 +1500,9 @@
 
         &__block {
             width: 490px;
+        }
+        &__bullet {
+            margin: 0 15px;
         }
     }
 }
