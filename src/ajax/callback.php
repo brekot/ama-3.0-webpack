@@ -5,7 +5,7 @@ $message .= 'E-mail: ' . $_REQUEST['email'] . ' ; ';
 $message .= 'Телефон: ' . $_REQUEST['phone'] . ' ; ';
 
 //mail('amalfimsk@gmail.com', 'Заявка с сайта', $message);
-mail('brekot@ya.ru', 'Заявка с сайта', $message);
+mail('amalfimsk@gmail.com', 'Заявка с сайта', $message);
 
 $result = array(
     "status" => "ok"

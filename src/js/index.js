@@ -16,7 +16,7 @@ Vue.use(VeeValidate, {
 });
 
 const ajax = axios.create({
-	baseURL: 'http://a.brekot.ru'
+	baseURL: 'https://amalfibaby.ru'
 });
 
 var appPersonalForm = new Vue({
@@ -74,6 +74,7 @@ var appPersonalForm = new Vue({
 							if (response.data.status === 'ok')
 							{
                                 this.isQuizSend = true;
+                                yaCounter55197436.reachGoal('quiz');
 							}
 							else alert('Ошибка отправки запроса');
 						});
@@ -96,6 +97,7 @@ var appPersonalForm = new Vue({
 							if (response.data.status === 'ok')
 							{
                                 this.isCallbackSend = true;
+                                yaCounter55197436.reachGoal('form');
 							}
 							else alert('Ошибка отправки запроса');
 						});

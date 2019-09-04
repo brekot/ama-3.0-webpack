@@ -11,7 +11,7 @@ $message .= 'E-mail: ' . $_REQUEST['email'] . ' ; ';
 $message .= 'Телефон: ' . $_REQUEST['phone'] . ' ; ';
 
 //mail('amalfimsk@gmail.com', 'Запрос цены', $message);
-mail('brekot@ya.ru', 'Запрос цены', $message);
+mail('amalfimsk@gmail.com', 'Запрос цены', $message);
 
 $result = array(
     "status" => "ok"
