@@ -230,11 +230,6 @@ var appPersonalForm = new Vue({
                     spaceBetween: 20
                 },
             },
-            pagination: {
-                el: '.' + strReviewPict + '__pagination',
-                bulletClass: strReviewPict + '__bullet',
-                bulletActiveClass: strReviewPict + '__bullet_active',
-            },
         });
 
         /* - - - Слайдер отзывы (видео) - - - */
@@ -246,17 +241,13 @@ var appPersonalForm = new Vue({
             slidesPerView: 3,
             breakpoints: {
                 1399: {
+                    slidesPerView: 2,
                     spaceBetween: 30
                 },
                 767: {
-                    slidesPerView: 2,
+                    slidesPerView: 1,
                     spaceBetween: 20
                 },
-            },
-            pagination: {
-                el: '.' + strReviewVideo + '__pagination',
-                bulletClass: strReviewVideo + '__bullet',
-                bulletActiveClass: strReviewVideo + '__bullet_active',
             },
         });
 

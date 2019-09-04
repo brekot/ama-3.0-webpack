@@ -115,10 +115,6 @@ const config = {
             {
                 from: "./src/fonts",
                 to: "./local/fonts"
-            },
-            {
-                from: "./src/video",
-                to: "./local/video"
             }
         ])
     ].concat(htmlPlugins)
