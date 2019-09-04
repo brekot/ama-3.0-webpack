@@ -54,7 +54,7 @@ var appPersonalForm = new Vue({
                     strSend += this.question.num3 + ' ' + this.question.num4 + ' ';
                     strSend += this.question.num5 + ' ';
 
-                    location.href = 'https://wa.me/79869331000?text=' + strSend;
+                    location.href = 'https://wa.me/79660182318?text=' + strSend;
                 }
             }
 		},
