@@ -57,7 +57,6 @@ var appPersonalForm = new Vue({
                     location.href = 'https://wa.me/79660182318?text=' + strSend;
                 }
             }
-            console.log(this.question);
 		},
 		quizSend() {
 			this.$validator.validateAll().then((result) => {
