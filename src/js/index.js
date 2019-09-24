@@ -104,6 +104,17 @@ var appPersonalForm = new Vue({
 				}
 				else return;
 			});
+        },
+        getCatalog() {
+
+            if (this.isMobule)
+            {
+                location.href = 'https://wa.me/79660182318';
+            }
+            else
+            {
+                document.getElementById('secondWindow').click();
+            }
         }
 	},
     mounted() {
@@ -250,6 +261,16 @@ var appPersonalForm = new Vue({
                 },
             },
         });
+
+        /* - - - Открытие окна по времени - - - */
+        var openWindowTimeout = setTimeout(() => {
+
+            if (!document.getElementById('fslightbox-container'))
+            {
+                document.getElementById('firstWindow').click();
+            }
+
+        }, 20000);
 
         /* - - - Прокрутка к элементу - - - */
         const anchors = [].slice.call(document.querySelectorAll('.go-to')),
