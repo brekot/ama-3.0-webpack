@@ -75,7 +75,7 @@ var appPersonalForm = new Vue({
 							{
                                 this.isQuizSend = true;
                                 yaCounter55197436.reachGoal('quiz');
-                                ga('send', 'quiz');
+								ga('send','event','quiz',"send");
 							}
 							else alert('Ошибка отправки запроса');
 						});
@@ -99,7 +99,7 @@ var appPersonalForm = new Vue({
 							{
                                 this.isCallbackSend = true;
                                 yaCounter55197436.reachGoal('form');
-                                ga('send', 'form');
+								ga('send','event','form',"send");
 							}
 							else alert('Ошибка отправки запроса');
 						});
