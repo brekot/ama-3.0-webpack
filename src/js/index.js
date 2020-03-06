@@ -264,7 +264,7 @@ var appPersonalForm = new Vue({
             },
         });
 
-        /* - - - Открытие окна по времени - - - */
+        /* - - - Открытие окна по времени - - - 
         var openWindowTimeout = setTimeout(() => {
 
             if (!document.getElementById('fslightbox-container'))
@@ -272,7 +272,7 @@ var appPersonalForm = new Vue({
                 document.getElementById('firstWindow').click();
             }
 
-        }, 20000);
+        }, 20000);*/
 
         /* - - - Прокрутка к элементу - - - */
         const anchors = [].slice.call(document.querySelectorAll('.go-to')),
