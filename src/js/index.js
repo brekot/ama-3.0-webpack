@@ -147,21 +147,13 @@ var appPersonalForm = new Vue({
 
         var sliderProducts = new Swiper(document.querySelector('.' + strProductsSlider + ' .swiper-container'), {
             loop: true,
-            spaceBetween: 50,
+            spaceBetween: 30,
             slidesPerView: 4,
             breakpoints: {
                 1399: {
-                    spaceBetween: 30
+                    slidesPerView: 3
                 },
                 991: {
-                    slidesPerView: 3,
-                    spaceBetween: 30
-                },
-                767: {
-                    slidesPerView: 2,
-                    spaceBetween: 30
-                },
-                576: {
                     slidesPerView: 2,
                     spaceBetween: 20
                 },

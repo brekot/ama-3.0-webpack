@@ -687,21 +687,35 @@
 
 .products-slider {
 
-    &__img {
+    &__pict {
         font-size: 0;
     }
+    &__img {
+        width: 100%;
+    }
     &__info {
-        font-size: 18px;
         display: flex;
         justify-content: space-between;
-        margin: 25px 0 0;
+        margin: 15px 0 0;
+        align-items: center;
+        min-height: 48px;
     }
     &__name {
         font-weight: bold;
     }
+    &__price-block {
+        margin: 0 0 0 20px;
+        text-align: right;
+    }
+    &__price-old {
+        text-decoration: line-through;
+        color: var(--red);
+        white-space: nowrap;
+    }
     &__price {
         white-space: nowrap;
-        margin: 0 0 0 20px;
+        font-size: 24px;
+        font-weight: bold;
     }
     &__str {
         margin: 65px 0 0 230px;
@@ -753,6 +767,16 @@
 {
     .products-slider {
         width: 490px;
+
+        &__name {
+            font-size: 16px;
+        }
+        &__price-old {
+            font-size: 16px;
+        }
+        &__price {
+            font-size: 18px;
+        }
     }
 }
 
