@@ -1,7 +1,6 @@
 <?php
 $message = 'Заявка с сайта: ';
 $message .= 'Имя: ' . $_REQUEST['name'] . ' ; ';
-$message .= 'E-mail: ' . $_REQUEST['email'] . ' ; ';
 $message .= 'Телефон: ' . $_REQUEST['phone'] . ' ; ';
 
 if (mail('amalfizayavki@gmail.com', 'Заявка с сайта', $message))
