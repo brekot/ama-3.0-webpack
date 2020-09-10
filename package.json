@@ -5,7 +5,7 @@
 	"main": "src/index.js",
 	"scripts": {
 		"start": "webpack-dev-server --mode development --open",
-		"build": "webpack --mode production && prettier --print-width=240 --tab-width=4 --parser html --write dist/*.html"
+		"build": "webpack --mode production && prettier --print-width=240 --tab-width=4 --parser html --write docs/*.html"
 	},
 	"dependencies": {
 		"axios": "^0.19.2",
