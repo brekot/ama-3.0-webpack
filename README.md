@@ -1,1 +1,1 @@
-https://brekot.github.io/ama-3.0-webpack/index.html
+https://brekot.github.io/ama-3.0-webpack/
